@@ -1,0 +1,332 @@
+.versions-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #050505;
+  padding: 200px 48px 120px 48px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Background Soft Ambient Glow (No cheap neon) */
+.versions-backlight {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.015) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.versions-container {
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+/* Header styling */
+.versions-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.versions-title {
+  font-family: 'Ubuntu Sans', 'Ubuntu', sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.versions-subtitle {
+  font-family: 'Ubuntu Sans', 'Inter', sans-serif;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: #8e8e93;
+  margin: 0;
+  max-width: 500px;
+  line-height: 1.5;
+}
+
+/* Filter Capsule Buttons */
+.filter-pills {
+  display: flex;
+  align-items: center;
+  padding: 4px 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 9999px;
+  gap: 2px;
+  margin-top: 10px;
+}
+
+.filter-pill {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #8e8e93;
+  font-family: 'Ubuntu Sans', sans-serif;
+  font-size: 0.82rem;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  user-select: none;
+}
+
+.filter-pill:hover {
+  color: #ffffff;
+}
+
+.filter-pill.active {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Version Cards Grid */
+.versions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  width: 100%;
+}
+
+/* Matte Glass Cards */
+.version-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.015);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-radius: 20px;
+  padding: 36px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+  min-height: 380px;
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06),
+    0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: 
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, filter, background, box-shadow;
+}
+
+/* When grid is hovered, dim and blur all cards */
+.versions-grid:hover .version-card {
+  opacity: 0.35;
+  filter: blur(4px);
+}
+
+/* Bring hovered card into sharp focus */
+.versions-grid:hover .version-card:hover {
+  opacity: 1;
+  filter: blur(0px);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+    0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Soft ambient lighting for V2.2 card */
+.active-release {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.card-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.015) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Card Top Metadata */
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+}
+
+.version-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.version-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.version-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 1px;
+  color: #8e8e93;
+}
+
+.version-date {
+  font-family: 'Ubuntu Sans', sans-serif;
+  font-size: 0.85rem;
+  color: #545456;
+}
+
+/* Description */
+.version-desc {
+  font-family: 'Ubuntu Sans', 'Inter', sans-serif;
+  font-size: 0.92rem;
+  color: #c7c7cc;
+  line-height: 1.5;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  opacity: 0.65;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.version-card:hover .version-desc {
+  opacity: 1;
+}
+
+/* Bullet Features list */
+.version-features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+  opacity: 0.65;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.version-card:hover .version-features {
+  opacity: 1;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Ubuntu Sans', sans-serif;
+  font-size: 0.85rem;
+  color: #8e8e93;
+}
+
+.feature-dot {
+  flex-shrink: 0;
+}
+
+/* Card Bottom */
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  margin-top: 10px;
+}
+
+.file-size {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: #545456;
+}
+
+/* Apple-style clean outline download button */
+.btn-download {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: #ffffff;
+  font-family: 'Ubuntu Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 400;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.btn-download:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-download:active {
+  transform: scale(0.98);
+}
+
+.download-icon {
+  overflow: visible;
+}
+
+.arrow-group {
+  transition: transform 0.2s ease;
+  transform-origin: center;
+}
+
+.btn-download:hover .arrow-group {
+  animation: arrowDownloadLoop 0.9s infinite linear;
+}
+
+@keyframes arrowDownloadLoop {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  30% {
+    transform: translateY(5px);
+    opacity: 0;
+  }
+  31% {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+  55% {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+  80% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 900px) {
+  .versions-section {
+    padding: 80px 24px;
+  }
+}

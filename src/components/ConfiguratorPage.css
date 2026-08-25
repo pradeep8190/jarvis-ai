@@ -1,0 +1,983 @@
+.configurator-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #050505;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 80px 0 60px 0;
+  overflow: hidden;
+}
+
+/* Header */
+.config-header {
+  text-align: center;
+  max-width: 640px;
+  margin-bottom: 10px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.config-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 14px;
+}
+
+.config-badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+}
+
+.config-badge-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  color: #a1a1aa;
+}
+
+.config-title {
+  font-family: 'Ubuntu Sans', 'Inter', sans-serif;
+  font-size: clamp(2rem, 3.2vw, 2.6rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0 0 8px;
+}
+
+.config-subtitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(0.85rem, 1.3vw, 0.95rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ---------------- Symmetrical Holographic Command Deck ---------------- */
+.symmetrical-holographic-deck {
+  position: relative;
+  width: 100%;
+  max-width: 1600px;
+  height: 720px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  overflow: visible;
+  padding: 0 10px;
+}
+
+/* Curved Arc Viewports */
+.curved-arc-viewport {
+  position: relative;
+  width: 320px;
+  height: 100%;
+  flex-shrink: 0;
+  overflow: visible;
+  user-select: none;
+  cursor: ns-resize;
+  z-index: 10;
+}
+
+.curved-arc-viewport.is-dragging {
+  cursor: grabbing;
+}
+
+.arc-left {
+  /* Left Flank `(` */
+}
+
+.arc-right {
+  /* Right Flank `)` */
+}
+
+/* Background SVG Guide Rails */
+.arc-rail-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.curved-items-track {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Minimalist Matte Capsule Item - Grab Cursor for Dragging */
+.arc-capsule-item {
+  position: absolute;
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 6px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: none;
+  border-radius: 9999px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 
+    0 10px 24px -4px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  cursor: grab; /* Dedicated Grab Cursor for Drag & Drop */
+  box-sizing: border-box;
+  white-space: nowrap;
+  transition: background 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+}
+
+.arc-capsule-item:active {
+  cursor: grabbing;
+}
+
+.arc-capsule-item:hover {
+  background: rgba(255, 255, 255, 0.045);
+  box-shadow: 
+    0 12px 28px -4px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.arc-capsule-item.is-focused {
+  background: rgba(255, 255, 255, 0.065);
+  box-shadow: 
+    0 14px 32px -4px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.arc-capsule-item.is-slotted {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.capsule-title {
+  font-family: 'Ubuntu Sans', 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.015em;
+  line-height: 1.2;
+  transition: color 0.2s ease, font-weight 0.2s ease;
+}
+
+.arc-capsule-item:hover .capsule-title {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.arc-capsule-item.is-focused .capsule-title,
+.arc-capsule-item.is-slotted .capsule-title {
+  color: #ffffff;
+  font-weight: 400;
+}
+
+/* Subtle Scroll Hint Bars */
+.arc-scroll-hint {
+  position: absolute;
+  left: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+  opacity: 0.25;
+  z-index: 2;
+}
+
+.arc-scroll-hint-right {
+  left: auto;
+  right: 2px;
+}
+
+.scroll-hint-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.14em;
+  color: #71717a;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+}
+
+.scroll-hint-bar {
+  width: 1.5px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  position: relative;
+}
+
+.scroll-hint-thumb {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  transition: top 0.08s ease-out;
+}
+
+/* ---------------- Center Astrolabe Workspace ---------------- */
+.astrolabe-center-workspace {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+/* Celestial Astrolabe 3D Vessel */
+.celestial-astrolabe-vessel {
+  position: relative;
+  width: 480px;
+  height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  perspective: 1200px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.celestial-astrolabe-vessel.is-drop-active {
+  transform: scale(1.08) !important;
+}
+
+/* Multi-Axial 3D Precision Gimbal Rings */
+.astrolabe-ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+}
+
+.ring-outer {
+  width: 450px;
+  height: 450px;
+  border: 1px dashed rgba(255, 255, 255, 0.14);
+  animation: astrolabe3DOuter 36s linear infinite;
+}
+
+.ring-middle {
+  width: 360px;
+  height: 360px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.4);
+  animation: astrolabe3DMiddle 24s linear infinite;
+}
+
+.ring-inner {
+  width: 270px;
+  height: 270px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-right: 1.5px solid rgba(255, 255, 255, 0.35);
+  animation: astrolabe3DInner 18s linear infinite;
+}
+
+/* Multi-Axial 3D Rotation Keyframes across X, Y, and Z */
+@keyframes astrolabe3DOuter {
+  0% {
+    transform: rotateX(62deg) rotateY(18deg) rotateZ(0deg);
+  }
+  50% {
+    transform: rotateX(62deg) rotateY(18deg) rotateZ(180deg);
+  }
+  100% {
+    transform: rotateX(62deg) rotateY(18deg) rotateZ(360deg);
+  }
+}
+
+@keyframes astrolabe3DMiddle {
+  0% {
+    transform: rotateX(-52deg) rotateY(-25deg) rotateZ(0deg);
+  }
+  50% {
+    transform: rotateX(-52deg) rotateY(-25deg) rotateZ(-180deg);
+  }
+  100% {
+    transform: rotateX(-52deg) rotateY(-25deg) rotateZ(-360deg);
+  }
+}
+
+@keyframes astrolabe3DInner {
+  0% {
+    transform: rotateX(25deg) rotateY(68deg) rotateZ(0deg);
+  }
+  50% {
+    transform: rotateX(25deg) rotateY(68deg) rotateZ(180deg);
+  }
+  100% {
+    transform: rotateX(25deg) rotateY(68deg) rotateZ(360deg);
+  }
+}
+
+/* Tick Marks on Outer Ring */
+.ring-tick-mark {
+  position: absolute;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.08em;
+}
+
+.tick-0 {
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tick-90 {
+  right: -26px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.tick-180 {
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tick-270 {
+  left: -26px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 3D Tilted Orbiting Slotted Modules Track */
+.orbiting-slotted-track {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  animation: astrolabe3DOrbit 40s linear infinite;
+}
+
+@keyframes astrolabe3DOrbit {
+  0% {
+    transform: rotateX(48deg) rotateY(15deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(48deg) rotateY(15deg) rotateZ(360deg);
+  }
+}
+
+.orbiting-module-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(18, 18, 24, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 9999px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.7);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.orbiting-module-badge:hover {
+  border-color: #ffffff;
+  background: rgba(28, 28, 36, 0.95);
+}
+
+.badge-orbit-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+}
+
+.badge-orbit-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* Central Quantum Core Hub */
+.quantum-core-hub {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.quantum-fluid-canvas {
+  position: absolute;
+  inset: -50px;
+  width: 320px;
+  height: 320px;
+  pointer-events: none;
+}
+
+
+
+/* ---------------- Gravitational Black Hole Suction Laser ---------------- */
+.blackhole-tether-svg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.suction-laser-line {
+  animation: laserPulseFlow 0.8s linear infinite;
+}
+
+@keyframes laserPulseFlow {
+  from {
+    stroke-dashoffset: 16;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------------- Floating Spaghettification Ghost Pill ---------------- */
+.dragging-ghost-pill {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  cursor: grabbing;
+  transition: box-shadow 0.15s ease;
+  transform-origin: center center;
+}
+
+.ghost-pill-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 18px;
+  background: rgba(18, 18, 24, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 9999px;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 
+    0 16px 36px rgba(0, 0, 0, 0.9),
+    0 0 20px rgba(255, 255, 255, 0.12);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dragging-ghost-pill.has-gravitational-pull .ghost-pill-body {
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 
+    0 16px 40px rgba(0, 0, 0, 0.95),
+    0 0 28px rgba(255, 255, 255, 0.3);
+}
+
+.dragging-ghost-pill.ghost-over-target .ghost-pill-body {
+  border-color: #ffffff;
+  background: rgba(25, 25, 34, 0.98);
+  box-shadow: 
+    0 20px 48px rgba(0, 0, 0, 1),
+    0 0 36px rgba(255, 255, 255, 0.55);
+}
+
+.ghost-title {
+  font-family: 'Ubuntu Sans', 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.ghost-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  color: #a1a1aa;
+}
+
+/* ---------------- Footer Status Bar ---------------- */
+.config-footer-bar {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.footer-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 9999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: #a1a1aa;
+}
+
+.chip-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 960px) {
+  .holographic-stage {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .curved-arc-viewport {
+    width: 100%;
+    max-width: 440px;
+    height: 550px;
+    margin: 0 auto;
+  }
+}
+
+
+/* Full 6-Node SVG Conduits Layer */
+.all-nodes-conduits-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+}
+
+.conduit-base-path {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.conduit-pulse-path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 14 140;
+  animation: multiNodePulse 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes multiNodePulse {
+  0% {
+    stroke-dashoffset: 154;
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+.conduit-terminal-dot {
+  opacity: 0.85;
+}
+
+.conduit-arrival-dot {
+  opacity: 0.95;
+}
+
+/* Interactive Node Anchor */
+.node-interactive-anchor {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 6 Minimalist Glass Cards */
+.node-pure-card {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 18px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.055) 0%, rgba(255, 255, 255, 0.015) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 9999px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 12px 28px -6px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  z-index: 4;
+  cursor: pointer;
+  box-sizing: border-box;
+  white-space: nowrap;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.node-pure-card:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: scale(1.02);
+}
+
+.node-pure-card.card-is-active {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 14px 32px -4px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.node-pure-card.card-is-active .card-pill-heading {
+  color: #ffffff;
+  font-weight: 400;
+}
+
+.card-pill-heading {
+  font-family: 'Ubuntu Sans', 'Inter', sans-serif;
+  font-size: clamp(0.75rem, 1.1vw, 0.85rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+/* ---------------- Sub-Card Panel ---------------- */
+.node-subcard-panel {
+  position: absolute;
+  z-index: 20;
+  animation: subcardFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes subcardFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Sub-Card Placement Directions */
+.subcard-placement-right {
+  left: calc(100% + 28px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.subcard-placement-left {
+  right: calc(100% + 28px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.subcard-placement-top {
+  bottom: calc(100% + 28px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.subcard-placement-bottom {
+  top: calc(100% + 28px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Pixel-perfect Connecting Bridge Line */
+.subcard-placement-right .subcard-bridge-line {
+  position: absolute;
+  left: -28px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+}
+
+.subcard-placement-right .subcard-bridge-line::before,
+.subcard-placement-right .subcard-bridge-line::after {
+  content: '';
+  position: absolute;
+  top: -1.5px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ffffff;
+  opacity: 0.85;
+}
+
+.subcard-placement-right .subcard-bridge-line::before {
+  left: -1px;
+}
+
+.subcard-placement-right .subcard-bridge-line::after {
+  right: -1px;
+}
+
+.subcard-placement-left .subcard-bridge-line {
+  position: absolute;
+  right: -28px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.4));
+}
+
+.subcard-placement-left .subcard-bridge-line::before,
+.subcard-placement-left .subcard-bridge-line::after {
+  content: '';
+  position: absolute;
+  top: -1.5px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ffffff;
+  opacity: 0.85;
+}
+
+.subcard-placement-left .subcard-bridge-line::before {
+  left: -1px;
+}
+
+.subcard-placement-left .subcard-bridge-line::after {
+  right: -1px;
+}
+
+/* Sub-Card Content Glass Box - Perfectly matches pill aesthetic */
+.subcard-content {
+  width: 250px;
+  background: linear-gradient(135deg, rgba(22, 22, 26, 0.94) 0%, rgba(12, 12, 16, 0.96) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  padding: 14px 16px;
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow:
+    0 16px 36px -8px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+.subcard-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 8px;
+}
+
+.subcard-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.subcard-title {
+  font-family: 'Ubuntu Sans', 'Inter', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.015em;
+}
+
+.subcard-subtitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.subcard-close-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+  transition: color 0.15s ease;
+}
+
+.subcard-close-btn:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.subcard-feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.subcard-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s ease;
+}
+
+.subcard-feature-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.subcard-feature-item.feature-is-selected {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Minimalist Checkbox Toggle Box */
+.feature-toggle-box {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.18s ease;
+}
+
+.feature-toggle-box.toggle-box-checked {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+}
+
+.check-svg {
+  width: 9px;
+  height: 9px;
+}
+
+.feature-text {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.35;
+  transition: color 0.15s ease;
+}
+
+.feature-is-selected .feature-text {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 400;
+}
+
+/* Center Orb */
+.pure-orb-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 380px;
+  height: 380px;
+  position: relative;
+  z-index: 1;
+}
+
+.pure-orb-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+  filter: grayscale(100%) contrast(1.1);
+}
+
+@media (max-width: 900px) {
+  .orb-stage-wrapper {
+    max-width: 100%;
+    height: 640px;
+  }
+
+  .pure-orb-container {
+    width: 300px;
+    height: 300px;
+  }
+
+  .subcard-content {
+    width: 190px;
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .configurator-section {
+    padding: 80px 16px;
+  }
+
+  .orb-stage-wrapper {
+    height: 560px;
+  }
+
+  .pure-orb-container {
+    width: 240px;
+    height: 240px;
+  }
+
+  .node-pure-card {
+    padding: 6px 12px;
+  }
+
+  .subcard-content {
+    width: 165px;
+    padding: 8px 10px;
+  }
+}

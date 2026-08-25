@@ -1,0 +1,321 @@
+/* FAQ Console Section styling */
+.faq-section {
+  width: 100%;
+  background: #000000;
+  padding: 120px 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.faq-header-centered {
+  text-align: center;
+  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+}
+
+.faq-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  box-sizing: border-box;
+}
+
+/* Right Panel Column */
+.faq-right-col {
+  flex: 0 0 42%;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.faq-header-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faq-tagline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #8e8e93;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.faq-title {
+  font-family: 'Ubuntu Sans', 'Inter', sans-serif;
+  font-size: clamp(2rem, 3.2vw, 2.5rem);
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.faq-subtitle {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.92rem;
+  color: #636366;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Selector Rack */
+.faq-selector-rack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.faq-selector-btn {
+  background: rgba(255, 255, 255, 0.01);
+  border: none;
+  border-radius: 12px;
+  padding: 16px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-align: left;
+  outline: none;
+  width: 100%;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.01);
+}
+
+.faq-selector-btn:hover {
+  background: rgba(255, 255, 255, 0.022);
+}
+
+/* Dynamic Left Indicator */
+.btn-indicator {
+  width: 2px;
+  height: 14px;
+  background: transparent;
+  border-radius: 99px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.faq-selector-btn:hover .btn-indicator {
+  background: rgba(255, 255, 255, 0.3);
+  height: 20px;
+}
+
+.faq-selector-btn.active-selector {
+  background: rgba(255, 255, 255, 0.025);
+  border-color: rgba(255, 255, 255, 0.04);
+}
+
+.faq-selector-btn.active-selector .btn-indicator {
+  background: #ffffff;
+  height: 28px;
+}
+
+.btn-text-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.btn-cmd-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: #48484a;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.faq-selector-btn:hover .btn-cmd-label,
+.faq-selector-btn.active-selector .btn-cmd-label {
+  color: #8e8e93;
+}
+
+.btn-q-text {
+  font-family: 'Ubuntu Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #8e8e93;
+  transition: color 0.3s ease;
+}
+
+.faq-selector-btn:hover .btn-q-text,
+.faq-selector-btn.active-selector .btn-q-text {
+  color: #ffffff;
+}
+
+/* Right Console Column */
+.faq-console-col {
+  flex: 1;
+  display: flex;
+  min-width: 0; /* allows box sizing shrink wrap inside flex */
+  position: relative;
+}
+
+.console-backlight {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 110%;
+  height: 110%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.02) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.faq-console-window {
+  width: 100%;
+  height: 480px;
+  background: rgba(12, 12, 12, 0.75);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: none;
+  border-radius: 18px;
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
+    0 40px 80px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.console-title-bar {
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.window-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.faq-console-window:hover .dot {
+  opacity: 1;
+}
+
+.dot-red { background: rgba(255, 255, 255, 0.28); }
+.dot-yellow { background: rgba(255, 255, 255, 0.18); }
+.dot-green { background: rgba(255, 255, 255, 0.1); }
+
+.console-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #8e8e93;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Console Screen Terminal display */
+.console-screen {
+  padding: 36px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  color: #d1d1d6;
+  line-height: 1.7;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.console-input-line {
+  display: flex;
+  align-items: center;
+}
+
+.console-prompt {
+  color: rgba(255, 255, 255, 0.35);
+  margin-right: 8px;
+  user-select: none;
+}
+
+.console-input-cmd {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.console-output-state {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: consoleFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.console-text-answer {
+  margin: 0;
+  color: #f5f5f7;
+  line-height: 1.7;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+@keyframes consoleFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.console-cursor-line {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.blinking-cursor {
+  color: #ffffff;
+  font-weight: bold;
+  animation: blinkCursor 0.9s infinite step-end;
+}
+
+@keyframes blinkCursor {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Responsive adjust */
+@media (max-width: 900px) {
+  .faq-container {
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .faq-right-col {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .console-screen {
+    padding: 24px;
+    font-size: 0.8rem;
+  }
+}
