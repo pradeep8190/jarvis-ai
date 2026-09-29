@@ -1,32 +1,32 @@
-# React + TypeScript + Vite
+# 🤖 Jarvis AI — Next-Gen Autonomous Assistant Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react)](https://react.dev/)
+[![GSAP](https://img.shields.io/badge/Animation-GSAP-green?style=flat&logo=greensock)](https://greensock.com/)
+[![Lenis](https://img.shields.io/badge/Scroll-Lenis-black?style=flat)](https://github.com/darkroomengineering/lenis)
 
-Currently, two official plugins are available:
+> A futuristic landing page and system configurator for the **Jarvis AI** assistant platform. Engineered with holographic HUD aesthetics, smooth preloader sequence, interactive version configurator, and dynamic bento features grid.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ⚡ Highlights
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Interactive System Configurator**: Customize neural model size, memory persistence, and tool access live.
+- **Futuristic Bento Grid**: High-density feature cards showcasing multimodal vision, voice synthesis, and coding skills.
+- **Cinematic Preloader**: HUD boot sequence with audio-visual system telemetry.
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## 🚀 Quick Start
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+git clone https://github.com/pradeep8190/jarvis-ai.git
+cd jarvis-ai
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+---
+
+## 👤 Author
+
+**Pradeep** — [@pradeep8190](https://github.com/pradeep8190)
